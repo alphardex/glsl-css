@@ -2,6 +2,8 @@
 
 用`GLSL Shader`来实现`CSS`创作的视觉特效
 
+![Preview](./previews/background.png)
+
 地址：https://glsl-css.vercel.app/
 
 食用方法：
