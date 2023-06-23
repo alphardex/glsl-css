@@ -1,0 +1,63 @@
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gallery-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .entry-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .entry-list shader-toy {
+    width: 10vw !important;
+    height: 10vw !important;
+    margin: 0.25rem;
+    box-shadow: 0 0 0 1px black;
+  }
+</style>
+<div class="gallery"></div>
+<script src="https://unpkg.com/kokomi.js/build/kokomi.umd.js"></script>
+<script>
+  fetch("./files.json")
+    .then((res) => res.json())
+    .then(async (res) => {
+      const { entries } = res;
+      const entryHTMLs = await Promise.all(
+        entries.map(async (entry) => {
+          const { folder } = entry;
+          const headerHTML = `<h1>${folder}</h1>`;
+
+          const shaderHTMLs = await Promise.all(
+            entry.list.map(async (file, i) => {
+              const shaderText = await (
+                await fetch(`/${folder}/${file.file}`)
+              ).text();
+              const shaderHTML = `<shader-toy id="${folder}-${
+                i + 1
+              }"><scripta type="frag">${shaderText}</scripta></shader-toy>`.replace(
+                /scripta/gi,
+                "script"
+              );
+              return shaderHTML;
+            })
+          );
+
+          const entryHTML = `<div class="gallery-item">${headerHTML}<div class="entry-list">${shaderHTMLs.join(
+            ""
+          )}</div></div>`;
+          return entryHTML;
+        })
+      );
+
+      const galleryEl = document.querySelector(".gallery");
+      galleryEl.innerHTML = entryHTMLs.join("");
+
+      kokomi.ShaderToyElement.register();
+    });
+</script>
