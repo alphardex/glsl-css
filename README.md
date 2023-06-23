@@ -2,6 +2,8 @@
 
 用`GLSL Shader`来实现`CSS`创作的视觉特效
 
+地址：https://glsl-css.vercel.app/
+
 食用方法：
 
 1. 对于每个`GLSL`文件，下载`vscode`插件[Shader Toy](https://marketplace.visualstudio.com/items?itemName=stevensona.shader-toy)，按下`Ctrl+Shift+P`，输入`Shader Toy: Show GLSL Preview`，点击即可预览结果
