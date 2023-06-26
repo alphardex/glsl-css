@@ -33,7 +33,6 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
     p1=rotate(p1,PI/4.);
     p1+=.5;
     float d1=sdBox(p1,vec2(.5));
-    float mask1=step(0.,d1);
     
     vec2 p2=uv;
     p2.y=1.-p2.y;
@@ -41,9 +40,10 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
     p2=rotate(p2,PI/4.);
     p2+=.5;
     float d2=sdBox(p2,vec2(.5));
-    float mask2=step(0.,d2);
     
-    float mask=opUnion(mask1,mask2);
+    float d=opUnion(d1,d2);
+    
+    float mask=step(0.,d);
     
     vec3 col=vec3(1.)*mask;
     
