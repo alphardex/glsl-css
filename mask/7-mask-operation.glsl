@@ -26,19 +26,18 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
     p1.x+=.5;
     p1.y-=.5;
     float d1=sdCircle(p1,1.);
-    float mask1=step(0.,d1);
     
     vec2 p2=uv;
     p2-=.5;
     p2.x-=.5;
     p2.y-=.5;
     float d2=sdCircle(p2,1.);
-    float mask2=step(0.,d2);
     
-    // float mask=opUnion(mask1,mask2);
-    // float mask=opIntersection(mask1,mask2);
-    // float mask=opSubtraction(mask1,mask2);
-    float mask=mask1+mask2;
+    // float d=opUnion(d1,d2);
+    // float d=opIntersection(d1,d2);
+    // float d=opSubtraction(d1,d2);
+    float d=opSubtraction(opIntersection(d1,d2),opUnion(d1,d2));
+    float mask=step(0.,d);
     
     vec3 col=vec3(1.);
     col*=mask;
