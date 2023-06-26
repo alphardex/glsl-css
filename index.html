@@ -24,7 +24,7 @@
 <div class="gallery"></div>
 <script src="https://unpkg.com/kokomi.js/build/kokomi.umd.js"></script>
 <script>
-  fetch("./files.json")
+  fetch(`./files.json?v=${Math.random()}`)
     .then((res) => res.json())
     .then(async (res) => {
       const { entries } = res;
@@ -35,12 +35,12 @@
 
           const shaderHTMLs = await Promise.all(
             entry.list.map(async (file, i) => {
-              const shaderText = await (
+              let shaderText = await (
                 await fetch(`/${folder}/${file.file}`)
-              ).text();
-              const shaderHTML = `<shader-toy id="${folder}-${
-                i + 1
-              }"><scripta type="frag">${shaderText}</scripta></shader-toy>`.replace(
+              ).text()
+              shaderText = shaderText.replace(/#iChannel.*/ig, "");
+              const shaderHTML = `<shader-toy id="${folder}-${i + 1
+                }"><img src="https://s2.loli.net/2023/03/20/5jmPqdJW7EL2a4X.jpg" name="iChannel0" hidden /><img src="https://s2.loli.net/2023/03/20/AgKHd6cZkUE9rGO.jpg" name="iChannel1" hidden /><scripta type="frag">${shaderText}</scripta></shader-toy>`.replace(
                 /scripta/gi,
                 "script"
               );
