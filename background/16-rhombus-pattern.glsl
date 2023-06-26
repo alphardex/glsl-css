@@ -35,7 +35,6 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
     p1=rotate(p1,PI/4.);
     p1+=.5;
     float d1=sdBox(p1,vec2(.5));
-    float mask1=step(0.,d1);
     
     vec2 p2=uv;
     p2.y=1.-p2.y;
