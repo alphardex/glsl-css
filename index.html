@@ -1,5 +1,6 @@
+<title>GLSL CSS</title>
 <style>
-  .gallery {
+  .gallery-col {
     display: flex;
     flex-direction: column;
   }
@@ -14,7 +15,8 @@
     flex-wrap: wrap;
   }
 
-  .entry-list shader-toy {
+  shader-toy {
+    display: inline-flex;
     width: 10vw !important;
     height: 10vw !important;
     margin: 0.25rem;
@@ -24,6 +26,8 @@
 <div class="gallery"></div>
 <script src="https://unpkg.com/kokomi.js/build/kokomi.umd.js"></script>
 <script>
+  const includeCategory = false;
+
   fetch(`./files.json?v=${Math.random()}`)
     .then((res) => res.json())
     .then(async (res) => {
@@ -48,9 +52,12 @@
             })
           );
 
-          const entryHTML = `<div class="gallery-item">${headerHTML}<div class="entry-list">${shaderHTMLs.join(
-            ""
-          )}</div></div>`;
+          const allShaderHTMLs = shaderHTMLs.join("");
+
+          let entryHTML = `<div class="gallery-col"><div class="gallery-item">${headerHTML}<div class="entry-list">${allShaderHTMLs}</div></div></div>`;
+          if(!includeCategory) {
+            entryHTML = `${allShaderHTMLs}`;
+          }
           return entryHTML;
         })
       );
