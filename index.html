@@ -26,7 +26,7 @@
 <div class="gallery"></div>
 <script src="https://unpkg.com/kokomi.js/build/kokomi.umd.js"></script>
 <script>
-  const includeCategory = false;
+  const includeCategory = window.location.hash === "#category";
 
   fetch(`./files.json?v=${Math.random()}`)
     .then((res) => res.json())
