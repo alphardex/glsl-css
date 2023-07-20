@@ -6,7 +6,8 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
     float lineWidth=.3;
     float lineOpacity=.5;
     vec3 lineColor=vec3(1.,1.,1.);
-    vec3 stripe=mix(col,lineColor,1.-step(lineWidth,uv.y));
+    float d=min(uv.y,1.-uv.y);
+    vec3 stripe=mix(col,lineColor,smoothstep(0.,32./iResolution.y,d-lineWidth));
     col+=stripe*lineOpacity;
     fragColor=vec4(col,1.);
 }
