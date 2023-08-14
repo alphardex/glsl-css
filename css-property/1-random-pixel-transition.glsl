@@ -19,7 +19,10 @@ vec4 transition(vec2 uv){
     
     float ratio=iResolution.x/iResolution.y;
     
-    float d=random(floor(uv*vec2(20.,20.)));
+    vec2 p=uv;
+    p.x*=ratio;
+    
+    float d=random(floor(p*vec2(20.,20.)));
     
     float s=.5;
     
